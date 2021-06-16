@@ -1,6 +1,20 @@
-<div>
-    <a routerLink="/list" >Lista</a>
-    -
-    <a routerLink="/form">Formulario</a>
-</div>
+<nav class="uk-navbar-container uk-margin navbar" uk-navbar>
+    <div class="uk-navbar-left">
+        
+        <div class="text-box">
+            <h1 data-text="back in black">Insoftar</h1>
+        </div>
+        
+        <ul class="uk-navbar-nav links">
+            <li>
+                <a routerLink="/list" >Lista</a>
+            </li>
+            <li>
+                <a routerLink="/form">Formulario</a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
 <router-outlet></router-outlet>

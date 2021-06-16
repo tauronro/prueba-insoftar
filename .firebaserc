@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "insoftar-prueba": {
+      "hosting": {
+        "pruebaInsoftar": [
+          "insoftar-prueba"
+        ]
+      }
+    }
+  }
+}
