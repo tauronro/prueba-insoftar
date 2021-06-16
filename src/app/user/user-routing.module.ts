@@ -12,6 +12,11 @@ const routes: Routes = [
     component: FormComponent,
   },
   {
+    //route dinamic
+    path: 'form/:id',
+    component: FormComponent,
+  },
+  {
     path: 'list',
     component: ListComponent,
   },
