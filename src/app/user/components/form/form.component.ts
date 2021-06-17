@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
+import { UniqueFieldValidator } from './unique-field.validator';
 
 @Component({
   selector: 'app-form',
@@ -12,16 +13,27 @@ import { take } from 'rxjs/operators';
 export class FormComponent implements OnInit {
   form: FormGroup;
   id: string | null = null;
+
   constructor(private userSvc: UserService, route: ActivatedRoute) {
     console.log(route.snapshot.params?.id);
 
     this.form = new FormGroup({
       id: new FormControl(null),
-      name: new FormControl(''),
-      lastname: new FormControl(''),
-      document_id: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      lastname: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
+      document_id: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[0-9,$]*$/),
+        //UniqueFieldValidator.createValidator(userSvc, 'document_id'),
+      ]),
+      email: new FormControl('', [
+        Validators.pattern(/\S+@\S+\.\S+/),
+        //UniqueFieldValidator.createValidator(userSvc, 'email'),
+      ]),
+      phone: new FormControl('', [Validators.pattern(/^[0-9,$]*$/)]),
     });
 
     if (route.snapshot.params?.id) {
@@ -37,7 +49,7 @@ export class FormComponent implements OnInit {
             email,
             document_id,
             phone,
-            id: this.id
+            id: this.id,
           });
         });
     }
@@ -57,5 +69,21 @@ export class FormComponent implements OnInit {
     } else {
       console.log('error');
     }
+  }
+
+  get name() {
+    return this.form.get('name');
+  }
+  get lastname() {
+    return this.form.get('lastname');
+  }
+  get email() {
+    return this.form.get('email');
+  }
+  get document_id() {
+    return this.form.get('document_id');
+  }
+  get phone() {
+    return this.form.get('phone');
   }
 }

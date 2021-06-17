@@ -29,6 +29,13 @@ export class UserService {
       .doc<UserModel>(id)
       .valueChanges() as Observable<UserModel>;
   }
+  getByField(field: string, value: string): Observable<UserModel[]> {
+    return this.firestore
+      .collection<UserModel>('users', (ref) => {
+        return ref.where(field, '==', value);
+      })
+      .valueChanges();
+  }
   delete(id: string): Promise<void> {
     return this.userCollection.doc(id).delete();
   }
