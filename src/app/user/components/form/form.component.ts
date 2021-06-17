@@ -26,11 +26,11 @@ export class FormComponent implements OnInit {
       ]),
       document_id: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[0-9,$]*$/),
+        Validators.pattern(/^[0-9,$]*$/)
         //UniqueFieldValidator.createValidator(userSvc, 'document_id'),
       ]),
       email: new FormControl('', [
-        Validators.pattern(/\S+@\S+\.\S+/),
+        Validators.pattern(/\S+@\S+\.\S+/)
         //UniqueFieldValidator.createValidator(userSvc, 'email'),
       ]),
       phone: new FormControl('', [Validators.pattern(/^[0-9,$]*$/)]),
@@ -64,6 +64,7 @@ export class FormComponent implements OnInit {
     if (this.form.valid) {
       this.userSvc.save(this.form.value).then(() => {
         console.log('saved');
+        alert('Se ha guardo correctamente')
       });
       console.log(this.form.value);
     } else {
